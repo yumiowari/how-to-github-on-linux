@@ -2,9 +2,22 @@
 
 ## Como configurar uma chave GPG para autenticação do GitHub e assinatura de _commits_ pelo terminal do Linux
 
+## Sumário
+
+1. [Instalar o _Git Credential Manager_ (GCM)](#1º-passo);
+2. [Configurar o GCM](#2º-passo);
+3. [Gerar uma chave GPG](#3º-passo);
+    - [(Opcional) Importação e exportação de chave privada GPG](#passo-opcional).
+4. [Configurar o Git para usar a _Credential Store_ GPG](#4º-passo);
+5. [Exportar a chave GPG pública](#5º-passo);
+6. [Contar ao Git sobre sua chave GPG](#6º-passo);
+7. [Configurar a chave GPG para a assinatura dos _commits_](#7º-passo);
+8. [Contar ao Git seu nome e e-mail para a assinatura dos commits](#8º-passo).
+
 ---
 
 ### 1º Passo:
+
 __Instalar o _Git Credential Manager_ (GCM):__
 > Fonte: https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md
 - Baixe o pacote: [gcm-linux-amd64.x.x.x.deb](https://github.com/git-ecosystem/git-credential-manager/releases/tag/v2.5.1);
@@ -13,6 +26,7 @@ __Instalar o _Git Credential Manager_ (GCM):__
 ---
 
 ### 2º Passo:
+
 __Configurar o GCM:__
 > Fonte: https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md
 - `git-credential-manager configure`.
@@ -20,6 +34,7 @@ __Configurar o GCM:__
 ---
 
 ### 3º Passo:
+
 __Gerar uma chave GPG:__
 > Fonte: https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
 - Execute: `gpg --full-generate-key`
@@ -32,7 +47,35 @@ __Gerar uma chave GPG:__
 
 ---
 
+### Passo opcional:
+
+__Importação e exportação de chave privada GPG:__
+
+O [3º passo](#3º-passo) pode ser substituído pela importação de uma __chave existente__.
+
+Isto é, após __exportar__ a chave privada:
+
+- `gpg --export-secret-keys --armor <gpg-key-id> > gpg-private-key.asc`.
+
+A informação da chave privata estará disponível no arquivo `gpg-private-key.asc`.
+> Qualquer nome é válido, contanto que a extensão seja `.asc`.
+
+Dessa forma, em outra máquina, faça a __importação__ da chave privada:
+
+- `gpg --import ./gpg-private-key.asc`.
+
+E confira o nível de confiança máximo à chave GPG:
+
+- `gpg --edit-key <gpg-key-id>`;
+- `trust`;
+- `5`;
+> (5 é maior nível de confiança)
+- `quit`.
+
+---
+
 ### 4º Passo:
+
 __Configurar o Git para usar a _Credential Store_ GPG:__
 > Fonte: https://github.com/git-ecosystem/git-credential-manager/blob/main/docs/credstores.md
 - `git config --global credential.credentialStore gpg`
@@ -40,6 +83,7 @@ __Configurar o Git para usar a _Credential Store_ GPG:__
 ---
 
 ### 5º Passo:
+
 __Exportar a chave GPG pública:__
 > Fonte: https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
 - Liste as chaves GPG em formato longo: `gpg --list-secret-keys --keyid-format=long`;
@@ -57,6 +101,7 @@ __Exportar a chave GPG pública:__
 ---
 
 ### 6º Passo:
+
 __Contar ao Git sobre sua chave GPG:__
 > Fonte: https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
 - Copie a chave GPG pública desde "-----BEGIN PGP PUBLIC KEY BLOCK-----" até "-----END PGP PUBLIC KEY BLOCK-----";
@@ -69,7 +114,8 @@ __Contar ao Git sobre sua chave GPG:__
 ---
 
 ### 7º Passo:
-__Configurar a chave GPG para assinatura dos _commits_:__
+
+__Configurar a chave GPG para a assinatura dos _commits_:__
 - Copie o identificador da chave GPG (obtido no 3º passo): `git config --global user.signingkey <gpg-key-id>`;
 - __Opcional__: Configure o Git para assinar os _commits_ por padrão: `git config --global commit.gpgsign true`;
 - Adicione a chave GPG ao `.bashrc`: `[ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc`.
@@ -77,7 +123,8 @@ __Configurar a chave GPG para assinatura dos _commits_:__
 ---
 
 ### 8º Passo:
-__Contar ao Git seu nome e e-mail para assinatura dos commits:__
+
+__Contar ao Git seu nome e e-mail para a assinatura dos commits:__
 - `git config --global user.name "<nome>"`;
 > "nome" é o nome de usuário do GitHub.
 - `git config --global user.email "<e-mail>"`.
