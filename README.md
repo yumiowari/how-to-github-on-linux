@@ -7,7 +7,7 @@
 1. [Instalar o _Git Credential Manager_ (GCM)](#1º-passo);
 2. [Configurar o GCM](#2º-passo);
 3. [Gerar uma chave GPG](#3º-passo);
-    - [(Opcional) Importação e exportação de chave privada GPG](#passo-opcional).
+    1. [(Opcional) Importação e exportação de chave privada GPG](#passo-opcional).
 4. [Configurar o Git para usar a _Credential Store_ GPG](#4º-passo);
 5. [Exportar a chave GPG pública](#5º-passo);
 6. [Contar ao Git sobre sua chave GPG](#6º-passo);
