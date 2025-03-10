@@ -2,6 +2,8 @@
 
 ## Como configurar uma chave GPG para autenticação do GitHub e assinatura de _commits_ pelo terminal do Linux
 
+> Apesar do tutorial funcionar para o Git do Windows, outros passos podem ser necessários.
+
 ## Sumário
 
 1. [Instalar o _Git Credential Manager_ (GCM)](#1º-passo);
@@ -64,7 +66,7 @@ Isto é, após __exportar__ a chave privada:
 A informação da chave privata estará disponível no arquivo `gpg-private-key.asc`.
 > Qualquer nome é válido, contanto que a extensão seja `.asc`.
 
-Dessa forma, em outra máquina, faça a __importação__ da chave privada:
+Dessa forma, em outra máquina, faça a __importação__ da chave privada a partir do arquivo:
 
 - `gpg --import ./gpg-private-key.asc`.
 
@@ -128,7 +130,8 @@ __Configurar a chave GPG para a assinatura dos _commits_:__
 
 - Copie o identificador da chave GPG (obtido no 3º passo): `git config --global user.signingkey <gpg-key-id>`;
 
-- __Opcional__: Configure o Git para assinar os _commits_ por padrão: `git config --global commit.gpgsign true`;
+- Configure o Git para assinar os _commits_ por padrão: `git config --global commit.gpgsign true`;
+> Este passo pode ser omitido. Contudo, é altamente recomendado.
 
 - Adicione a chave GPG ao `.bashrc`: `[ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc`.
 
@@ -143,6 +146,8 @@ __Contar ao Git seu nome e e-mail para a assinatura dos commits:__
 
 - `git config --global user.email "<e-mail>"`.
 > O e-mail deve ser o mesmo do GitHub.
+
+Para visualização da configuração, acesse o arquivo oculto `.gitconfig` na pasta pessoal de usuário.
 
 ---
 
