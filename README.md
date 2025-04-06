@@ -133,7 +133,8 @@ __Configurar a chave GPG para a assinatura dos _commits_:__
 - Configure o Git para assinar os _commits_ por padrão: `git config --global commit.gpgsign true`;
 > Este passo pode ser omitido. Contudo, é altamente recomendado.
 
-- Adicione a chave GPG ao `.bashrc`: `[ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc`.
+- Configura a variável de ambiente GPG_TTY `.bashrc`: `[ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc`.
+> Garantindo que operações GPG que exigem interação (como assinatura) funcionem no terminal atual.
 
 ---
 
