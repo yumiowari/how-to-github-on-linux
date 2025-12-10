@@ -25,6 +25,7 @@ __Instalar o _Git Credential Manager_ (GCM):__
 
 - Baixe o pacote: [gcm-linux-amd64.x.x.x.deb](https://github.com/git-ecosystem/git-credential-manager/releases);
 - E instale: `sudo dpkg -i ./gcm-linux_amd64.x.x.x.deb`.
+> No Arch, instale a partir do yay: `yay -S git-credential-manager`
 
 ---
 
